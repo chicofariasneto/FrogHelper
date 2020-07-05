@@ -8,6 +8,10 @@ const bot = new telegram(token, {
 })
 
 const {
+    private
+} = require('./app/logic/exceptionLogic')
+
+const {
     start
 } = require('./app/logic/startLogic')
 
@@ -28,6 +32,11 @@ bot.onText(/\/start/, async(message) => {
     // Chat id
     const chatId = message.chat.id
 
+    if (private(chatId)) {
+        bot.sendMessage(chatId, "🐸!Croak!🐸 I currently do not have support for private chats 🐸!Croak!🐸")
+        return
+    }
+
     // Group Title
     const title = message.chat.title
 
@@ -39,6 +48,11 @@ bot.onText(/\/start/, async(message) => {
 bot.onText(/\/join/, async(message) => {
     // Chat id
     const chatId = message.chat.id
+
+    if (private(chatId)) {
+        bot.sendMessage(chatId, "🐸!Croak!🐸 I currently do not have support for private chats 🐸!Croak!🐸")
+        return
+    }
 
     // User id
     const userId = message.from.id
@@ -55,6 +69,11 @@ bot.onText(/\/leave/, async(message) => {
     // Chat id
     const chatId = message.chat.id
 
+    if (private(chatId)) {
+        bot.sendMessage(chatId, "🐸!Croak!🐸 I currently do not have support for private chats 🐸!Croak!🐸")
+        return
+    }
+
     // User id
     const userId = message.from.id
 
@@ -66,6 +85,11 @@ bot.onText(/\/leave/, async(message) => {
 bot.onText(/\/all (.+)/, async(message, match) => {
     // Chat id
     const chatId = message.chat.id
+
+    if (private(chatId)) {
+        bot.sendMessage(chatId, "🐸!Croak!🐸 I currently do not have support for private chats 🐸!Croak!🐸")
+        return
+    }
 
     // Users list
     const users = await all(chatId)
@@ -85,6 +109,11 @@ bot.onText(/\/all (.+)/, async(message, match) => {
 bot.onText(/\/all/, async(message) => {
     // Chat id
     const chatId = message.chat.id
+
+    if (private(chatId)) {
+        bot.sendMessage(chatId, "🐸!Croak!🐸 I currently do not have support for private chats 🐸!Croak!🐸")
+        return
+    }
 
     // Users list
     const users = await all(chatId)
