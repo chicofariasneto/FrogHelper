@@ -1,0 +1,34 @@
+{
+    "name": "froghelper",
+    "version": "1.0.0",
+    "description": "This is Helper Frog, He is a telegram bot that will help groups with simples problems",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon src/index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/chicofariasneto/FrogHelper.git"
+    },
+    "keywords": [
+        "bot",
+        "telegram",
+        "helper",
+        "node"
+    ],
+    "author": "chicofariasneto",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/chicofariasneto/FrogHelper/issues"
+    },
+    "homepage": "https://github.com/chicofariasneto/FrogHelper#readme",
+    "dependencies": {
+        "dotenv": "^8.2.0",
+        "node-telegram-bot-api": "^0.50.0",
+        "pg": "^8.2.1"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.4"
+    }
+}
