@@ -28,12 +28,14 @@ const {
 } = require('./app/logic/allLogic')
 const { pool } = require('./database/connection')
 
+const privateMessage = "🐸!Croak!🐸 I currently do not have support for private chats\n Add me on a group and send /start 🐸!Croak!🐸"
+
 bot.onText(/\/start/, async(message) => {
     // Chat id
     const chatId = message.chat.id
 
     if (private(chatId)) {
-        bot.sendMessage(chatId, "🐸!Croak!🐸 I currently do not have support for private chats 🐸!Croak!🐸")
+        bot.sendMessage(chatId, privateMessage)
         return
     }
 
@@ -50,7 +52,7 @@ bot.onText(/\/join/, async(message) => {
     const chatId = message.chat.id
 
     if (private(chatId)) {
-        bot.sendMessage(chatId, "🐸!Croak!🐸 I currently do not have support for private chats 🐸!Croak!🐸")
+        bot.sendMessage(chatId, privateMessage)
         return
     }
 
@@ -70,7 +72,7 @@ bot.onText(/\/leave/, async(message) => {
     const chatId = message.chat.id
 
     if (private(chatId)) {
-        bot.sendMessage(chatId, "🐸!Croak!🐸 I currently do not have support for private chats 🐸!Croak!🐸")
+        bot.sendMessage(chatId, privateMessage)
         return
     }
 
@@ -87,7 +89,7 @@ bot.onText(/\/all (.+)/, async(message, match) => {
     const chatId = message.chat.id
 
     if (private(chatId)) {
-        bot.sendMessage(chatId, "🐸!Croak!🐸 I currently do not have support for private chats 🐸!Croak!🐸")
+        bot.sendMessage(chatId, privateMessage)
         return
     }
 
@@ -111,7 +113,7 @@ bot.onText(/\/all/, async(message) => {
     const chatId = message.chat.id
 
     if (private(chatId)) {
-        bot.sendMessage(chatId, "🐸!Croak!🐸 I currently do not have support for private chats 🐸!Croak!🐸")
+        bot.sendMessage(chatId, privateMessage)
         return
     }
 
