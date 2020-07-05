@@ -107,23 +107,3 @@ bot.onText(/\/all (.+)/, async(message, match) => {
     }
     bot.sendMessage(chatId, message)
 })
-
-bot.onText(/\/all/, async(message) => {
-    // Chat id
-    const chatId = message.chat.id
-
-    if (private(chatId)) {
-        bot.sendMessage(chatId, privateMessage)
-        return
-    }
-
-    // Users list
-    const users = await all(chatId)
-
-    var message = "🐸!Croak!🐸 Calling all little frogs 🐸!Croak!🐸\n\n"
-
-    for (user of users) {
-        message += user + " \n"
-    }
-    bot.sendMessage(chatId, message)
-})
