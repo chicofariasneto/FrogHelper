@@ -26,9 +26,22 @@ const {
 const {
     all
 } = require('./app/logic/allLogic')
-const { pool } = require('./database/connection')
 
-const privateMessage = "🐸!Croak!🐸 I currently do not have support for private chats\n Add me on a group and send /start 🐸!Croak!🐸"
+const {
+    random
+} = require('./app/logic/randomLogic')
+
+const {
+    privateMessage,
+    startMessage,
+    joinMessage,
+    leaveMessage,
+    allMessage,
+    randomMessage,
+    userMessage,
+} = require('./app/model/messageModel')
+
+const { pool } = require('./database/connection')
 
 bot.onText(/\/start/, async(message) => {
     // Chat id
@@ -43,8 +56,9 @@ bot.onText(/\/start/, async(message) => {
     const title = message.chat.title
 
     // Start Group
-    await start(chatId, title)
-    bot.sendMessage(chatId, "🐸!Croak!🐸 This group was started\nNow, all members must send /join 🐸!Croak!🐸")
+    const started = await start(chatId, title)
+    if (started)
+        bot.sendMessage(chatId, startMessage)
 })
 
 bot.onText(/\/join/, async(message) => {
@@ -63,8 +77,9 @@ bot.onText(/\/join/, async(message) => {
     const username = message.from.username
 
     // Add user
-    await join(userId, chatId, username)
-    bot.sendMessage(chatId, "🐸!Croak!🐸 Congratulations frog puppy!\nYou have been successfully adopted 🐸!Croak!🐸")
+    const joined = await join(userId, chatId, username)
+    if (joined)
+        bot.sendMessage(chatId, joinMessage)
 })
 
 bot.onText(/\/leave/, async(message) => {
@@ -81,7 +96,7 @@ bot.onText(/\/leave/, async(message) => {
 
     // Leave user
     await leave(userId, chatId)
-    bot.sendMessage(chatId, "🐸!Croak!🐸 Okay, it's a shame that you want to leave me 🐸!Croak!🐸")
+    bot.sendMessage(chatId, leaveMessage)
 })
 
 bot.onText(/\/all (.+)/, async(message, match) => {
@@ -99,11 +114,38 @@ bot.onText(/\/all (.+)/, async(message, match) => {
     // User Message
     const note = match[1]
 
-    var message = "🐸!Croak!🐸 Calling all little frogs 🐸!Croak!🐸\n\n"
-    message += note + "\n\n"
+    bot.sendMessage(chatId, allMessage(note, message, users))
+})
 
-    for (user of users) {
-        message += user + " \n"
+bot.onText(/\/random/, async(message) => {
+    // Chat id
+    const chatId = message.chat.id
+
+    if (private(chatId)) {
+        bot.sendMessage(chatId, privateMessage)
+        return
     }
-    bot.sendMessage(chatId, message)
+
+    // Users list
+    const users = await all(chatId)
+
+    // Random order
+    const usersRandom = random(users)
+    bot.sendMessage(chatId, randomMessage(usersRandom))
+})
+
+bot.onText(/\/user/, async(message) => {
+    // Char id
+    const chatId = message.chat.id
+
+    if (private(chatId)) {
+        bot.sendMessage(chatId, privateMessage)
+        return
+    }
+
+    // Users list
+    const users = await all(chatId)
+    const random = Math.floor(Math.random() * users.length)
+
+    bot.sendMessage(chatId, userMessage(users[random]))
 })
