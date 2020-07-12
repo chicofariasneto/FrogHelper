@@ -1,13 +1,19 @@
-const random = (arr) => {
+const { pool } = require('../../database/connection')
 
-    for (let i = arr.length - 1; i > 0; i--) {
-        const numberRand = Math.floor(Math.random() * 1)
-        const aux = arr[i]
-        arr[i] = arr[numberRand]
-        arr[numberRand] = aux
+const {
+    selectUsersGroupRandom
+} = require('../model/userModel')
+
+const random = async(chatId) => {
+    const result = await pool.query(selectUsersGroupRandom, [chatId])
+
+    var users = []
+
+    for (user of result.rows) {
+        users.push("@" + user.username)
     }
 
-    return arr
+    return users
 }
 
 module.exports = {

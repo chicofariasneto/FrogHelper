@@ -126,11 +126,9 @@ bot.onText(/\/random/, async(message) => {
         return
     }
 
-    // Users list
-    const users = await all(chatId)
-
     // Random order
-    const usersRandom = random(users)
+    const usersRandom = await random(chatId)
+
     bot.sendMessage(chatId, randomMessage(usersRandom))
 })
 
@@ -144,8 +142,8 @@ bot.onText(/\/user/, async(message) => {
     }
 
     // Users list
-    const users = await all(chatId)
-    const random = Math.floor(Math.random() * users.length)
+    var users = await all(chatId)
+    var random = Math.floor(Math.random() * users.length)
 
     bot.sendMessage(chatId, userMessage(users[random]))
 })

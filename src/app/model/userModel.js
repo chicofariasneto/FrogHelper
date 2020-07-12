@@ -17,6 +17,10 @@ const selectUserGroup = "SELECT * FROM frog_helper.user_group\
 const selectUsersGroup = "SELECT username FROM frog_helper.user_group\
     WHERE id_group = $1;"
 
+const selectUsersGroupRandom = "SELECT username FROM frog_helper.user_group\
+    WHERE id_group = $1\
+    ORDER BY RANDOM();"
+
 const deleteUser = "DELETE FROM frog_helper.user_group \
     WHERE id_user = $1 AND id_group = $2;"
 
@@ -24,5 +28,6 @@ module.exports = {
     insertUser,
     selectUserGroup,
     selectUsersGroup,
+    selectUsersGroupRandom,
     deleteUser,
 }
