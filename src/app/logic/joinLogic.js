@@ -1,7 +1,7 @@
 const { pool } = require('../../database/connection')
 
 const {
-    insertUser,
+    user,
 } = require('../model/userModel')
 
 const {
@@ -13,7 +13,7 @@ const join = async(userId, groupId, username) => {
     if (check)
         return false
 
-    await pool.query(insertUser, [userId, groupId, username])
+    await pool.query(user.insert, [userId, groupId, username])
     return true
 }
 

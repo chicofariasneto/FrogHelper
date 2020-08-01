@@ -1,11 +1,11 @@
 const { pool } = require('../../database/connection')
 
 const {
-    selectUsersGroupRandom
+    user,
 } = require('../model/userModel')
 
 const random = async(chatId) => {
-    const result = await pool.query(selectUsersGroupRandom, [chatId])
+    const result = await pool.query(user.selectUsersRandom, [chatId])
 
     var users = []
 
