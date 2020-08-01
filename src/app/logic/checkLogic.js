@@ -1,20 +1,20 @@
 const { pool } = require('../../database/connection')
 
 const {
-    selectGroup
+    group
 } = require('../model/groupModel')
 
 const {
-    selectUserGroup
+    user
 } = require("../model/userModel")
 
 const checkGroup = async(chatId) => {
-    const result = await pool.query(selectGroup, [chatId])
+    const result = await pool.query(group.selectGroup, [chatId])
     return result.rowCount > 0
 }
 
 const checkUser = async(groupId, userId) => {
-    const result = await pool.query(selectUserGroup, [groupId, userId])
+    const result = await pool.query(user.selectUser, [groupId, userId])
     return result.rowCount > 0
 }
 

@@ -1,11 +1,11 @@
 const { pool } = require('../../database/connection')
 
 const {
-    deleteUser
+    user,
 } = require('../model/userModel')
 
 const leave = async(userId, groupId) => {
-    await pool.query(deleteUser, [userId, groupId])
+    await pool.query(user.delete, [userId, groupId])
 }
 
 module.exports = {

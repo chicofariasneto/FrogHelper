@@ -1,7 +1,7 @@
 const { pool } = require('../../database/connection')
 
 const {
-    insertGroup,
+    group,
 } = require('../model/groupModel')
 
 const {
@@ -13,7 +13,7 @@ const start = async(chatId, title) => {
     if (check)
         return false
 
-    await pool.query(insertGroup, [chatId, title])
+    await pool.query(group.insert, [chatId, title])
     return true
 }
 

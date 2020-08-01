@@ -1,11 +1,11 @@
 const { pool } = require('../../database/connection')
 
 const {
-    selectUsersGroup,
+    user
 } = require('../model/userModel')
 
 const all = async(groupId) => {
-    const result = await pool.query(selectUsersGroup, [groupId])
+    const result = await pool.query(user.selectUsers, [groupId])
 
     var users = []
 
